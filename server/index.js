@@ -2,7 +2,7 @@ import { Server } from 'socket.io';
 
 const io = new Server({
     cors: {
-        origin: 'http://localhost:5173',
+        origin: 'https://flexgame-client-9f23aa5c1cd5.herokuapp.com',
         credentials: true
     }
 });
