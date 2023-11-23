@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { io } from "socket.io-client";
 import {atom, useAtom} from 'jotai'
 
-export const socket = io("https://flexgame-server-fa685a1a8141.herokuapp.com/");
+export const socket = io("http://localhost:3001");
 export const charactersAtom = atom([]);
 
 export const SocketManager = () =>

@@ -2,10 +2,12 @@ import { Server } from 'socket.io';
 
 const io = new Server({
     cors: {
-        origin: 'https://flexgame-client-9f23aa5c1cd5.herokuapp.com',
+        origin: 'http://localhost:3050',
         credentials: true
     }
 });
+
+console.log("Server started");
 
 const characters = [];
 
@@ -21,7 +23,7 @@ const generateRandomHexColor = () =>
 
 io.listen(3001);
 
-io.on("connection", (socket) => {
+io.on("connect", (socket) => {
     console.log("New user connected");
 
     characters.push({

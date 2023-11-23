@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:    
+  client:
+    # image: omersajid9/first-docker-app:client
+    stdin_open: true
+    build:
+      dockerfile: Dockerfile
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+
+  api_server:
+    restart: always
+    # image: omersajid9/first-docker-app:api_mysql
+    build:
+      dockerfile: Dockerfile
+      context: "./server"
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    ports:
+      - "3001:3001"
+  nginx:
+    depends_on:
+      - client
+      - api_server
+    restart: always
+    # image: omersajid9/first-docker-app:api_nginx
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"
+
+
+
