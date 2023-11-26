@@ -1,5 +1,8 @@
 import { Server } from 'socket.io';
 
+import express from 'express';
+const app = express();
+app.listen(3001, () => console.log("Server started!!111"));
 
 const io = new Server({
     cors: {
