@@ -1,10 +1,10 @@
 import { Server } from 'socket.io';
 
+
 const io = new Server({
     cors: {
-        origin: 'http://localhost:3050',
-        credentials: true
-    }
+        origin: '*'
+        }
 });
 
 console.log("Server started");
