@@ -10,6 +10,8 @@ services:
     volumes:
       - /app/node_modules
       - ./client:/app
+    ports:
+      - "8080:8080"
 
   api_server:
     restart: always

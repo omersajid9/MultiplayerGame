@@ -16,13 +16,17 @@ import { House } from './House'
 import { Rock1 } from './Rock1'
 import { Rock2 } from './Rock2'
 
+import { useThree } from "@react-three/fiber";
+
 export const Experience = ({action}) => {
   const [characters] = useAtom(charactersAtom);
   const [onFloor, setOnFloor] = useState(false);
   const [color1, setColor] = useState("#f0f0f0");
+  const { camera } = useThree();
   useEffect(()=>
   {
-    console.log(characters, onFloor)
+
+    console.log(camera.position, camera.rotation);
   }, [onFloor, color1])
 
 
@@ -37,18 +41,23 @@ export const Experience = ({action}) => {
   return (
     <>
     <Environment preset="night" />
-    {/* <pointLight args={['white', 10000, 10]} 
-        position={[0, 10,-9]} castShadow
+    <pointLight args={['brown', 10000, 10]} 
+        position={[1, 10,-9]} castShadow
         shadow-mapSize={[512, 512]}
-    /> */}
-    {/* <fog attach="fog" args={['#606466', 30, 40]} /> */}
-    <spotLight
+    />
+    <pointLight args={['#ffe692 ', 1000, 10]} 
+        position={[1, 10,-8]} castShadow
+        shadow-mapSize={[512, 512]}
+    />
+
+    <fogExp2 attach="fog" args={[0xcccccc, .02]} />
+    {/* <spotLight
         position={[10, 10, 10]}
         angle={3}
         penumbra={10}
         castShadow
         shadow-mapSize={[512, 512]} 
-      />
+      /> */}
       <ContactShadows blur={2} />
       <OrbitControls />
       {/* <But s={setColor} /> */}
