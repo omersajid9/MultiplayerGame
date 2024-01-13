@@ -13,6 +13,7 @@ export function AnimatedWomen({
   hairColor = 'green',
   topColor = 'pink',
   bottomColor = 'brown',
+  action,
   ...props
 }) {
 
@@ -26,25 +27,39 @@ export function AnimatedWomen({
 
   useFrame(()=>
   {
-    if (group.current.position.distanceTo(props.position) > 0.1)
+     if (group.current.position.distanceTo(props.position) > 0.1)
     {
       const direction = group.current.position.clone().sub(props.position).normalize().multiplyScalar(MOVEMENT_SPEED)
       group.current.position.sub(direction);
       group.current.lookAt(props.position);
       setAnimation("CharacterArmature|Run")
     }
+    else if (animation == "CharacterArmature|Punch_Right")
+    {
+      // var arr = ["CharacterArmature|Punch_Right", "CharacterArmature|Punch_Right", "CharacterArmature|Kick_Left", "CharacterArmature|HitRecieve_2", "CharacterArmature|HitRecieve"]
+      // var selection = arr[Math.floor(Math.random() * arr.length)];
+      // console.log(selection, "SEL")
+      setAnimation("CharacterArmature|Punch_Right")
+    }
     else
     {
       setAnimation("CharacterArmature|Idle")
 
     }
+
   })
 
 
 
   const { actions } = useAnimations(animations, group)
-  const [ animation, setAnimation ] = useState("CharacterArmature|Idle");
-
+  const [ animation, setAnimation ] = useState(action);
+  console.log(actions)
+  useEffect(() =>
+  {
+    setAnimation(action)
+    // actions[animation].reset().fadeIn(0.32).play();
+    // return () => actions[animation]?.fadeOut(0.32);
+  }, [action])
   useEffect(() =>
   {
     actions[animation].reset().fadeIn(0.32).play();
@@ -55,7 +70,7 @@ export function AnimatedWomen({
     <group ref={group} {...props} position={position} dispose={null}>
       <group name="Root_Scene">
         <group name="RootNode">
-          <group name="CharacterArmature" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
+          <group name="CharacterArmature" rotation={[-Math.PI / 2, 0, 0]} scale={200}>
             <primitive object={nodes.Root} />
           </group>
           <group name="Casual_Body" rotation={[-Math.PI / 2, 0, 0]} scale={100}>
